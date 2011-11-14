@@ -8,13 +8,12 @@ var sys = require('sys'),
 exports.currentDirectory = process.cwd();
 
 function _addProperty(property_name, conf) {
+    if (exports[property_name]) { conf[property_name].__proto__ = exports[property_name]; }
     Object.defineProperty(
         exports,
         property_name,
         {
-            get: function() {
-                return conf[property_name];
-            },
+	    value: conf[property_name],
             enumerable: true,
             configurable: true
         }
